@@ -127,6 +127,10 @@ namespace WebView2WpfBrowser
             control.KeyDown += WebView_KeyDown;
         }
 
+        /// <summary>
+        /// WebView是否有效
+        /// </summary>
+        /// <returns></returns>
         bool IsWebViewValid()
         {
             try
@@ -503,7 +507,8 @@ namespace WebView2WpfBrowser
                 saveFileDialog.InitialDirectory = "C:\\";
                 saveFileDialog.Filter = "Pdf Files|*.pdf";
                 Nullable<bool> result = saveFileDialog.ShowDialog();
-                if (result == true) {
+                if (result == true)
+                {
                     _isPrintToPdfInProgress = true;
                     bool isSuccessful = await webView.CoreWebView2.PrintToPdfAsync(
                         saveFileDialog.FileName, printSettings);
@@ -781,9 +786,11 @@ namespace WebView2WpfBrowser
                     webView.CoreWebView2.Environment.CreateContextMenuItem(
                         "Display Page Uri", null,
                         CoreWebView2ContextMenuItemKind.Command);
-                    subItem.CustomItemSelected += delegate (object send, Object ex) {
+                    subItem.CustomItemSelected += delegate (object send, Object ex)
+                    {
                         string pageUrl = args.ContextMenuTarget.PageUri;
-                        System.Threading.SynchronizationContext.Current.Post((_) => {
+                        System.Threading.SynchronizationContext.Current.Post((_) =>
+                        {
                             MessageBox.Show(pageUrl, "Display Page Uri", MessageBoxButton.YesNo);
                         }, null);
                     };
@@ -881,7 +888,8 @@ namespace WebView2WpfBrowser
             }
         }
 
-        async void Webview2_FaviconChanged(object sender,object args) {
+        async void Webview2_FaviconChanged(object sender, object args)
+        {
             string value = webView.CoreWebView2.FaviconUri;
             System.IO.Stream stream = await webView.CoreWebView2.GetFaviconAsync(
               CoreWebView2FaviconImageFormat.Png);
@@ -1079,9 +1087,9 @@ namespace WebView2WpfBrowser
                     case CoreWebView2DownloadState.InProgress:
                         break;
                     case CoreWebView2DownloadState.Interrupted:
-                    // Here developer can take different actions based on `download.InterruptReason`.
-                    // For example, show an error message to the end user.
-                    break;
+                        // Here developer can take different actions based on `download.InterruptReason`.
+                        // For example, show an error message to the end user.
+                        break;
                     case CoreWebView2DownloadState.Completed:
                         break;
                 }
@@ -1220,7 +1228,7 @@ namespace WebView2WpfBrowser
                 }
                 _isServerCertificateError = !_isServerCertificateError;
 
-                MessageBox.Show(this, "Custom server certificate support has been" + 
+                MessageBox.Show(this, "Custom server certificate support has been" +
                     (_isServerCertificateError ? "enabled" : "disabled"),
                     "Custom server certificate support");
             }
@@ -1232,7 +1240,7 @@ namespace WebView2WpfBrowser
 
         void WebView_ServerCertificateErrorDetected(object sender, CoreWebView2ServerCertificateErrorDetectedEventArgs e)
         {
-           CoreWebView2Certificate certificate = e.ServerCertificate;
+            CoreWebView2Certificate certificate = e.ServerCertificate;
 
             // Continues the request to a server with a TLS certificate if the error status 
             // is of type `COREWEBVIEW2_WEB_ERROR_STATUS_CERTIFICATE_IS_INVALID`
@@ -1253,17 +1261,17 @@ namespace WebView2WpfBrowser
         // You may also choose to defer server certificate validation.
         bool ValidateServerCertificate(CoreWebView2Certificate certificate)
         {
-           // You may want to validate certificates in different ways depending on your app and
-           // scenario. One way might be the following:
-           // First, get the list of host app trusted certificates and its thumbprint.
-           //
-           // Then get the last chain element using `ICoreWebView2Certificate::get_PemEncodedIssuerCertificateChain`
-           // that contains the raw data of the untrusted root CA/self-signed certificate. Get the untrusted
-           // root CA/self signed certificate thumbprint from the raw certificate data and validate the thumbprint
-           // against the host app trusted certificate list.
-           //
-           // Finally, return true if it exists in the host app's certificate trusted list, or otherwise return false.
-           return true;
+            // You may want to validate certificates in different ways depending on your app and
+            // scenario. One way might be the following:
+            // First, get the list of host app trusted certificates and its thumbprint.
+            //
+            // Then get the last chain element using `ICoreWebView2Certificate::get_PemEncodedIssuerCertificateChain`
+            // that contains the raw data of the untrusted root CA/self-signed certificate. Get the untrusted
+            // root CA/self signed certificate thumbprint from the raw certificate data and validate the thumbprint
+            // against the host app trusted certificate list.
+            //
+            // Finally, return true if it exists in the host app's certificate trusted list, or otherwise return false.
+            return true;
         }
 
         // This example clears `AlwaysAllow` response that are added for proceeding with TLS certificate errors.
@@ -1432,6 +1440,9 @@ namespace WebView2WpfBrowser
                 // <IsMutedChanged>
                 webView.CoreWebView2.IsMutedChanged += WebView_IsMutedChanged;
                 // </IsMutedChanged>
+                // <NewWindowRequested>
+                webView.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
+                // </NewWindowRequested>
 
                 // The CoreWebView2Environment instance is reused when re-assigning CoreWebView2CreationProperties
                 // to the replacement control. We don't need to re-attach the event handlers unless the environment
@@ -1466,6 +1477,12 @@ namespace WebView2WpfBrowser
 
             MessageBox.Show($"WebView2 creation failed with exception = {e.InitializationException}");
         }
+
+        private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
+        {
+            e.NewWindow = webView.CoreWebView2;
+        }
+
         private void SetDefaultDownloadDialogPosition()
         {
             try
@@ -1481,7 +1498,7 @@ namespace WebView2WpfBrowser
                 webView.CoreWebView2.DefaultDownloadDialogMargin = margin;
                 // </SetDefaultDownloadDialogPosition>
             }
-            catch (NotImplementedException) {}
+            catch (NotImplementedException) { }
         }
 
         // <BrowserProcessExited>
@@ -1794,7 +1811,7 @@ namespace WebView2WpfBrowser
                     }
                 };
             }
-            catch (NotImplementedException) {}
+            catch (NotImplementedException) { }
         }
         private void ToggleDownloadDialog(object target, RoutedEventArgs e)
         {

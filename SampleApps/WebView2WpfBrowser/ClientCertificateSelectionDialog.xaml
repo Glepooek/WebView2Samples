@@ -5,30 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WebView2WpfBrowser"
         mc:Ignorable="d"
-        Title="ClientCertificateSelectionDialog" Height="200" Width="500">
+        Title="ClientCertificateSelectionDialog"
+        Height="200"
+        Width="500">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock x:Name="Description" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0"/>
-        <ListView Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Name="CertificateDataBinding">
+        <TextBlock x:Name="Description"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="3"
+                   Grid.Row="0" />
+        <ListView Grid.Column="0"
+                  Grid.ColumnSpan="3"
+                  Grid.Row="0"
+                  Name="CertificateDataBinding">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Subject" >
+                    <GridViewColumn Header="Subject">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Subject}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Issuer" >
+                    <GridViewColumn Header="Issuer">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Issuer}" />
@@ -49,7 +57,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Kind" >
+                    <GridViewColumn Header="Kind">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Kind}" />
@@ -59,7 +67,18 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Click="ok_Clicked" IsDefault="True" Grid.Column="1" Grid.Row="2" Width="60">OK</Button>
-        <Button IsCancel="True" Grid.Column="2" Grid.Row="2" Width="60">Cancel</Button>
+        <Button Click="ok_Clicked"
+                IsDefault="True"
+                Grid.Column="1"
+                Grid.Row="2"
+                Width="60">
+            OK
+        </Button>
+        <Button IsCancel="True"
+                Grid.Column="2"
+                Grid.Row="2"
+                Width="60">
+            Cancel
+        </Button>
     </Grid>
 </Window>
