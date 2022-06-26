@@ -67,7 +67,7 @@ namespace WV2CDPExtensionSample
         {
             await cdpHelper.Emulation.SetPageScaleFactorAsync(4);
         }
-       
+
         async void ResetPageScale(object sender, RoutedEventArgs e)
         {
             await cdpHelper.Emulation.SetPageScaleFactorAsync(1);
@@ -83,7 +83,7 @@ namespace WV2CDPExtensionSample
             Trace.WriteLine(await cdpHelper.Page.CaptureSnapshotAsync());
         }
 
-        async void GetAllCookies(object sender, RoutedEventArgs e) 
+        async void GetAllCookies(object sender, RoutedEventArgs e)
         {
             Network.Cookie[] cookies = await cdpHelper.Network.GetAllCookiesAsync();
             StringBuilder cookieResult = new StringBuilder(cookies.Count() + " cookie(s) received\n");

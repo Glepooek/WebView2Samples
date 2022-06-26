@@ -1046,8 +1046,7 @@ namespace WebView2WpfBrowser
             }
         }
 
-        void SetDefaultDownloadPathCmdExecuted(object target,
-            ExecutedRoutedEventArgs e)
+        void SetDefaultDownloadPathCmdExecuted(object target, ExecutedRoutedEventArgs e)
         {
             try
             {
