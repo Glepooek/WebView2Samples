@@ -29,8 +29,8 @@ struct ClientCertificate
     PCWSTR CertificateKind;
 };
 
-// Constructing this struct will show a client certificate selection dialog and return when 
-// the user dismisses it. If the user clicks the OK button, confirmed will be true with the 
+// Constructing this struct will show a client certificate selection dialog and return when
+// the user dismisses it. If the user clicks the OK button, confirmed will be true with the
 // selected certificate.
 struct ClientCertificateSelectionDialog
 {

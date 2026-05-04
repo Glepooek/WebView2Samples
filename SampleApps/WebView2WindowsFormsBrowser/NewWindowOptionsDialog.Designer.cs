@@ -1,4 +1,4 @@
-﻿// Copyright (C) Microsoft Corporation. All rights reserved.
+// Copyright (C) Microsoft Corporation. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -59,9 +59,9 @@ namespace WebView2WindowsFormsBrowser
             this.flowLayoutPanel6.SuspendLayout();
             this.flowLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // flowLayoutPanel1
-            // 
+            //
             this.flowLayoutPanel1.Controls.Add(this.flowLayoutPanel2);
             this.flowLayoutPanel1.Controls.Add(this.flowLayoutPanel3);
             this.flowLayoutPanel1.Controls.Add(this.flowLayoutPanel4);
@@ -72,9 +72,9 @@ namespace WebView2WindowsFormsBrowser
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(450, 184);
             this.flowLayoutPanel1.TabIndex = 0;
-            // 
+            //
             // flowLayoutPanel2
-            // 
+            //
             this.flowLayoutPanel2.Controls.Add(this.label1);
             this.flowLayoutPanel2.Controls.Add(this.BrowserExecutableFolder);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 0);
@@ -82,9 +82,9 @@ namespace WebView2WindowsFormsBrowser
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(450, 32);
             this.flowLayoutPanel2.TabIndex = 0;
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.Location = new System.Drawing.Point(10, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -93,9 +93,9 @@ namespace WebView2WindowsFormsBrowser
             this.label1.TabIndex = 0;
             this.label1.Text = "BrowserExecutableFolder:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // BrowserExecutableFolder
-            // 
+            //
             this.BrowserExecutableFolder.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BrowserExecutableFolder.Location = new System.Drawing.Point(155, 5);
             this.BrowserExecutableFolder.Margin = new System.Windows.Forms.Padding(0);
@@ -103,9 +103,9 @@ namespace WebView2WindowsFormsBrowser
             this.BrowserExecutableFolder.AutoSize = false;
             this.BrowserExecutableFolder.Size = new System.Drawing.Size(285, 25);
             this.BrowserExecutableFolder.TabIndex = 1;
-            // 
+            //
             // flowLayoutPanel3
-            // 
+            //
             this.flowLayoutPanel3.Controls.Add(this.label2);
             this.flowLayoutPanel3.Controls.Add(this.UserDataFolder);
             this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 32);
@@ -113,9 +113,9 @@ namespace WebView2WindowsFormsBrowser
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(450, 32);
             this.flowLayoutPanel3.TabIndex = 1;
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.Location = new System.Drawing.Point(10, 0);
             this.label2.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -124,9 +124,9 @@ namespace WebView2WindowsFormsBrowser
             this.label2.TabIndex = 0;
             this.label2.Text = "UserDataFolder:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // UserDataFolder
-            // 
+            //
             this.UserDataFolder.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.UserDataFolder.Location = new System.Drawing.Point(155, 5);
             this.UserDataFolder.Margin = new System.Windows.Forms.Padding(0);
@@ -134,9 +134,9 @@ namespace WebView2WindowsFormsBrowser
             this.UserDataFolder.AutoSize = false;
             this.UserDataFolder.Size = new System.Drawing.Size(285, 25);
             this.UserDataFolder.TabIndex = 1;
-            // 
+            //
             // flowLayoutPanel4
-            // 
+            //
             this.flowLayoutPanel4.Controls.Add(this.label3);
             this.flowLayoutPanel4.Controls.Add(this.EnvLanguage);
             this.flowLayoutPanel4.Location = new System.Drawing.Point(0, 64);
@@ -144,9 +144,9 @@ namespace WebView2WindowsFormsBrowser
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
             this.flowLayoutPanel4.Size = new System.Drawing.Size(450, 32);
             this.flowLayoutPanel4.TabIndex = 2;
-            // 
+            //
             // label3
-            // 
+            //
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.Location = new System.Drawing.Point(10, 0);
             this.label3.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -155,9 +155,9 @@ namespace WebView2WindowsFormsBrowser
             this.label3.TabIndex = 0;
             this.label3.Text = "Language:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // EnvLanguage
-            // 
+            //
             this.EnvLanguage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.EnvLanguage.Location = new System.Drawing.Point(155, 5);
             this.EnvLanguage.Margin = new System.Windows.Forms.Padding(0);
@@ -165,9 +165,9 @@ namespace WebView2WindowsFormsBrowser
             this.EnvLanguage.AutoSize = false;
             this.EnvLanguage.Size = new System.Drawing.Size(285, 25);
             this.EnvLanguage.TabIndex = 1;
-            // 
+            //
             // flowLayoutPanel5
-            // 
+            //
             this.flowLayoutPanel5.Controls.Add(this.label4);
             this.flowLayoutPanel5.Controls.Add(this.ProfileName);
             this.flowLayoutPanel5.Location = new System.Drawing.Point(0, 96);
@@ -175,9 +175,9 @@ namespace WebView2WindowsFormsBrowser
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
             this.flowLayoutPanel5.Size = new System.Drawing.Size(450, 32);
             this.flowLayoutPanel5.TabIndex = 3;
-            // 
+            //
             // label4
-            // 
+            //
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.Location = new System.Drawing.Point(10, 0);
             this.label4.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -186,9 +186,9 @@ namespace WebView2WindowsFormsBrowser
             this.label4.TabIndex = 0;
             this.label4.Text = "ProfileName:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // ProfileName
-            // 
+            //
             this.ProfileName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ProfileName.Location = new System.Drawing.Point(155, 5);
             this.ProfileName.Margin = new System.Windows.Forms.Padding(0);
@@ -196,9 +196,9 @@ namespace WebView2WindowsFormsBrowser
             this.ProfileName.AutoSize = false;
             this.ProfileName.Size = new System.Drawing.Size(285, 25);
             this.ProfileName.TabIndex = 1;
-            // 
+            //
             // flowLayoutPanel6
-            // 
+            //
             this.flowLayoutPanel6.Controls.Add(this.label5);
             this.flowLayoutPanel6.Controls.Add(this.comboBox_IsInPrivateModeEnabled);
             this.flowLayoutPanel6.Location = new System.Drawing.Point(0, 128);
@@ -206,9 +206,9 @@ namespace WebView2WindowsFormsBrowser
             this.flowLayoutPanel6.Name = "flowLayoutPanel6";
             this.flowLayoutPanel6.Size = new System.Drawing.Size(450, 32);
             this.flowLayoutPanel6.TabIndex = 4;
-            // 
+            //
             // label5
-            // 
+            //
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.Location = new System.Drawing.Point(10, 0);
             this.label5.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -217,9 +217,9 @@ namespace WebView2WindowsFormsBrowser
             this.label5.TabIndex = 0;
             this.label5.Text = "IsInPrivateModeEnabled:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // comboBox_IsInPrivateModeEnabled
-            // 
+            //
             this.comboBox_IsInPrivateModeEnabled.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.comboBox_IsInPrivateModeEnabled.FormattingEnabled = true;
             this.comboBox_IsInPrivateModeEnabled.Items.AddRange(new object[] {
@@ -233,18 +233,18 @@ namespace WebView2WindowsFormsBrowser
             this.comboBox_IsInPrivateModeEnabled.Size = new System.Drawing.Size(120, 25);
             this.comboBox_IsInPrivateModeEnabled.TabIndex = 1;
             this.comboBox_IsInPrivateModeEnabled.Text = "Default";
-            // 
+            //
             // flowLayoutPanel7
-            // 
+            //
             this.flowLayoutPanel7.Controls.Add(this.OKBtn);
             this.flowLayoutPanel7.Controls.Add(this.CancelBtn);
             this.flowLayoutPanel7.Location = new System.Drawing.Point(10, 200);
             this.flowLayoutPanel7.Name = "flowLayoutPanel7";
             this.flowLayoutPanel7.Size = new System.Drawing.Size(450, 32);
             this.flowLayoutPanel7.TabIndex = 1;
-            // 
+            //
             // OKBtn
-            // 
+            //
             this.OKBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.OKBtn.Location = new System.Drawing.Point(296, 0);
             this.OKBtn.Margin = new System.Windows.Forms.Padding(296, 0, 0, 0);
@@ -254,9 +254,9 @@ namespace WebView2WindowsFormsBrowser
             this.OKBtn.Text = "OK";
             this.OKBtn.UseVisualStyleBackColor = true;
             this.OKBtn.Click += new System.EventHandler(this.OKBtn_Click);
-            // 
+            //
             // CancelBtn
-            // 
+            //
             this.CancelBtn.Location = new System.Drawing.Point(361, 0);
             this.CancelBtn.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.CancelBtn.Name = "CancelBtn";
@@ -265,9 +265,9 @@ namespace WebView2WindowsFormsBrowser
             this.CancelBtn.Text = "Cancel";
             this.CancelBtn.UseVisualStyleBackColor = true;
             this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
-            // 
+            //
             // NewWindowOptionsDialog
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 260);

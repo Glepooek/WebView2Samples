@@ -2422,12 +2422,13 @@ void AppWindow::RegisterEventHandlers()
 
     //! [WindowCloseRequested]
     // Register a handler for the WindowCloseRequested event.
-    // This handler will close the app window if it is not the main window.
+    // This handler will close the app window if it is not the main window,
+    // or if it is a WCO window (where the close button fires this event).
     CHECK_FAILURE(m_webView->add_WindowCloseRequested(
         Callback<ICoreWebView2WindowCloseRequestedEventHandler>(
             [this](ICoreWebView2* sender, IUnknown* args)
             {
-                if (m_isPopupWindow)
+                if (m_isPopupWindow || m_webviewOption.useWco)
                 {
                     CloseAppWindow();
                 }

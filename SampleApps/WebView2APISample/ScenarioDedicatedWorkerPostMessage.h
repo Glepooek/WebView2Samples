@@ -15,12 +15,11 @@ public:
 
 private:
     void SetupEventsOnDedicatedWorker(
-        wil::com_ptr<ICoreWebView2ExperimentalDedicatedWorker> dedicatedWorker);
-    void ComputeWithDedicatedWorker(
-        wil::com_ptr<ICoreWebView2ExperimentalDedicatedWorker> dedicatedWorker);
+        wil::com_ptr<ICoreWebView2DedicatedWorker> dedicatedWorker);
+    void ComputeWithDedicatedWorker(wil::com_ptr<ICoreWebView2DedicatedWorker> dedicatedWorker);
 
     AppWindow* m_appWindow;
-    wil::com_ptr<ICoreWebView2Experimental30> m_webView2Experimental_30;
+    wil::com_ptr<ICoreWebView2_29> m_webView2_29;
     std::wstring m_sampleUri;
     EventRegistrationToken m_contentLoadingToken = {};
     EventRegistrationToken m_dedicatedWorkerCreatedToken = {};

@@ -51,19 +51,16 @@ void ScenarioServiceWorkerPostMessageSetting::ToggleServiceWorkerJsApiSetting()
 
     wil::com_ptr<ICoreWebView2Profile> webView2Profile;
     CHECK_FAILURE(webView2_13->get_Profile(&webView2Profile));
-    auto webViewExperimentalProfile15 =
-        webView2Profile.try_query<ICoreWebView2ExperimentalProfile15>();
+    auto webViewProfile9 = webView2Profile.try_query<ICoreWebView2Profile9>();
 
-    if (webViewExperimentalProfile15)
+    if (webViewProfile9)
     {
         BOOL isEnabled;
         //! [AreWebViewScriptApisEnabledForServiceWorkers]
         CHECK_FAILURE(
-            webViewExperimentalProfile15->get_AreWebViewScriptApisEnabledForServiceWorkers(
-                &isEnabled));
+            webViewProfile9->get_AreWebViewScriptApisEnabledForServiceWorkers(&isEnabled));
         CHECK_FAILURE(
-            webViewExperimentalProfile15->put_AreWebViewScriptApisEnabledForServiceWorkers(
-                !isEnabled));
+            webViewProfile9->put_AreWebViewScriptApisEnabledForServiceWorkers(!isEnabled));
         //! [AreWebViewScriptApisEnabledForServiceWorkers]
 
         MessageBox(
@@ -130,25 +127,22 @@ void ScenarioServiceWorkerPostMessageSetting::SetupEventsOnWebview()
 
     wil::com_ptr<ICoreWebView2Profile> webView2Profile;
     CHECK_FAILURE(webView2_13->get_Profile(&webView2Profile));
-    auto webViewExperimentalProfile13 =
-        webView2Profile.try_query<ICoreWebView2ExperimentalProfile13>();
-    CHECK_FEATURE_RETURN_EMPTY(webViewExperimentalProfile13);
-    CHECK_FAILURE(
-        webViewExperimentalProfile13->get_ServiceWorkerManager(&m_serviceWorkerManager));
+    auto webViewProfile9 = webView2Profile.try_query<ICoreWebView2Profile9>();
+    CHECK_FEATURE_RETURN_EMPTY(webViewProfile9);
+    CHECK_FAILURE(webViewProfile9->get_ServiceWorkerManager(&m_serviceWorkerManager));
 
     CHECK_FAILURE(m_serviceWorkerManager->add_ServiceWorkerRegistered(
-        Callback<ICoreWebView2ExperimentalServiceWorkerRegisteredEventHandler>(
+        Callback<ICoreWebView2ServiceWorkerRegisteredEventHandler>(
             [this](
-                ICoreWebView2ExperimentalServiceWorkerManager* sender,
-                ICoreWebView2ExperimentalServiceWorkerRegisteredEventArgs* args)
+                ICoreWebView2ServiceWorkerManager* sender,
+                ICoreWebView2ServiceWorkerRegisteredEventArgs* args)
             {
-                wil::com_ptr<ICoreWebView2ExperimentalServiceWorkerRegistration>
-                    serviceWorkerRegistration;
+                wil::com_ptr<ICoreWebView2ServiceWorkerRegistration> serviceWorkerRegistration;
                 CHECK_FAILURE(args->get_ServiceWorkerRegistration(&serviceWorkerRegistration));
 
                 if (serviceWorkerRegistration)
                 {
-                    wil::com_ptr<ICoreWebView2ExperimentalServiceWorker> serviceWorker;
+                    wil::com_ptr<ICoreWebView2ServiceWorker> serviceWorker;
                     CHECK_FAILURE(
                         serviceWorkerRegistration->get_ActiveServiceWorker(&serviceWorker));
 
@@ -159,15 +153,13 @@ void ScenarioServiceWorkerPostMessageSetting::SetupEventsOnWebview()
                     else
                     {
                         CHECK_FAILURE(serviceWorkerRegistration->add_ServiceWorkerActivated(
-                            Callback<
-                                ICoreWebView2ExperimentalServiceWorkerActivatedEventHandler>(
+                            Callback<ICoreWebView2ServiceWorkerActivatedEventHandler>(
                                 [this](
-                                    ICoreWebView2ExperimentalServiceWorkerRegistration* sender,
-                                    ICoreWebView2ExperimentalServiceWorkerActivatedEventArgs*
-                                        args) -> HRESULT
+                                    ICoreWebView2ServiceWorkerRegistration* sender,
+                                    ICoreWebView2ServiceWorkerActivatedEventArgs* args)
+                                    -> HRESULT
                                 {
-                                    wil::com_ptr<ICoreWebView2ExperimentalServiceWorker>
-                                        serviceWorker;
+                                    wil::com_ptr<ICoreWebView2ServiceWorker> serviceWorker;
                                     CHECK_FAILURE(
                                         args->get_ActiveServiceWorker(&serviceWorker));
                                     SetupEventsOnServiceWorker(serviceWorker);
@@ -186,12 +178,12 @@ void ScenarioServiceWorkerPostMessageSetting::SetupEventsOnWebview()
 }
 
 void ScenarioServiceWorkerPostMessageSetting::SetupEventsOnServiceWorker(
-    wil::com_ptr<ICoreWebView2ExperimentalServiceWorker> serviceWorker)
+    wil::com_ptr<ICoreWebView2ServiceWorker> serviceWorker)
 {
     serviceWorker->add_WebMessageReceived(
-        Callback<ICoreWebView2ExperimentalServiceWorkerWebMessageReceivedEventHandler>(
+        Callback<ICoreWebView2ServiceWorkerWebMessageReceivedEventHandler>(
             [this](
-                ICoreWebView2ExperimentalServiceWorker* sender,
+                ICoreWebView2ServiceWorker* sender,
                 ICoreWebView2WebMessageReceivedEventArgs* args) -> HRESULT
             {
                 wil::unique_cotaskmem_string messageRaw;

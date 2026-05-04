@@ -1,4 +1,4 @@
-﻿
+
 namespace WebView2WindowsFormsBrowser
 {
     partial class TextInputDialog
@@ -34,44 +34,44 @@ namespace WebView2WindowsFormsBrowser
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtInput = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
+            //
             // btnOk
-            // 
+            //
             this.btnOk.Location = new System.Drawing.Point(443, 218);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(93, 40);
             this.btnOk.TabIndex = 0;
             this.btnOk.Text = "OK";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
+            //
             // btnCancel
-            // 
+            //
             this.btnCancel.Location = new System.Drawing.Point(529, 218);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(93, 40);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
+            //
             // txtDescription
-            // 
+            //
             this.txtDescription.Location = new System.Drawing.Point(-1, 2);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
             this.txtDescription.Size = new System.Drawing.Size(623, 33);
             this.txtDescription.TabIndex = 2;
-            // 
+            //
             // txtInput
-            // 
+            //
             this.txtInput.Location = new System.Drawing.Point(-1, 30);
             this.txtInput.Multiline = true;
             this.txtInput.Name = "txtInput";
             this.txtInput.Size = new System.Drawing.Size(623, 190);
             this.txtInput.TabIndex = 3;
-            // 
+            //
             // TextInputDialog
-            // 
+            //
             this.ClientSize = new System.Drawing.Size(620, 261);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtInput);

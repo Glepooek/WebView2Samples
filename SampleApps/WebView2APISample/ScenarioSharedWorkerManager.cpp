@@ -26,11 +26,9 @@ void ScenarioSharedWorkerManager::GetSharedWorkerManager()
 
     wil::com_ptr<ICoreWebView2Profile> webView2Profile;
     CHECK_FAILURE(webView2_13->get_Profile(&webView2Profile));
-    auto webViewExperimentalProfile13 =
-        webView2Profile.try_query<ICoreWebView2ExperimentalProfile13>();
-    CHECK_FEATURE_RETURN_EMPTY(webViewExperimentalProfile13);
-    CHECK_FAILURE(
-        webViewExperimentalProfile13->get_SharedWorkerManager(&m_sharedWorkerManager));
+    auto webViewProfile9 = webView2Profile.try_query<ICoreWebView2Profile9>();
+    CHECK_FEATURE_RETURN_EMPTY(webViewProfile9);
+    CHECK_FAILURE(webViewProfile9->get_SharedWorkerManager(&m_sharedWorkerManager));
     //! [SharedWorkerManager]
 }
 
@@ -43,12 +41,12 @@ void ScenarioSharedWorkerManager::SetupEventsOnWebview()
 
     //! [SharedWorkerCreated]
     CHECK_FAILURE(m_sharedWorkerManager->add_SharedWorkerCreated(
-        Callback<ICoreWebView2ExperimentalSharedWorkerCreatedEventHandler>(
+        Callback<ICoreWebView2SharedWorkerCreatedEventHandler>(
             [this](
-                ICoreWebView2ExperimentalSharedWorkerManager* sender,
-                ICoreWebView2ExperimentalSharedWorkerCreatedEventArgs* args)
+                ICoreWebView2SharedWorkerManager* sender,
+                ICoreWebView2SharedWorkerCreatedEventArgs* args)
             {
-                wil::com_ptr<ICoreWebView2ExperimentalSharedWorker> sharedWorker;
+                wil::com_ptr<ICoreWebView2SharedWorker> sharedWorker;
                 CHECK_FAILURE(args->get_Worker(&sharedWorker));
 
                 wil::unique_cotaskmem_string scriptUri;
@@ -59,10 +57,9 @@ void ScenarioSharedWorkerManager::SetupEventsOnWebview()
 
                 // Subscribe to worker destroying event
                 sharedWorker->add_Destroying(
-                    Callback<ICoreWebView2ExperimentalSharedWorkerDestroyingEventHandler>(
+                    Callback<ICoreWebView2SharedWorkerDestroyingEventHandler>(
                         [this, scriptUriStr](
-                            ICoreWebView2ExperimentalSharedWorker* sender,
-                            IUnknown* args) -> HRESULT
+                            ICoreWebView2SharedWorker* sender, IUnknown* args) -> HRESULT
                         {
                             /*Cleanup on worker destruction*/
                             m_appWindow->AsyncMessageBox(
@@ -83,10 +80,8 @@ void ScenarioSharedWorkerManager::GetAllSharedWorkers()
 {
     CHECK_FEATURE_RETURN_EMPTY(m_sharedWorkerManager);
     CHECK_FAILURE(m_sharedWorkerManager->GetSharedWorkers(
-        Callback<ICoreWebView2ExperimentalGetSharedWorkersCompletedHandler>(
-            [this](
-                HRESULT error,
-                ICoreWebView2ExperimentalSharedWorkerCollectionView* workersCollection)
+        Callback<ICoreWebView2GetSharedWorkersCompletedHandler>(
+            [this](HRESULT error, ICoreWebView2SharedWorkerCollectionView* workersCollection)
                 -> HRESULT
             {
                 UINT32 workersCount = 0;
@@ -97,7 +92,7 @@ void ScenarioSharedWorkerManager::GetAllSharedWorkers()
 
                 for (UINT32 i = 0; i < workersCount; i++)
                 {
-                    ComPtr<ICoreWebView2ExperimentalSharedWorker> sharedWorker;
+                    ComPtr<ICoreWebView2SharedWorker> sharedWorker;
                     CHECK_FAILURE(workersCollection->GetValueAtIndex(i, &sharedWorker));
 
                     wil::unique_cotaskmem_string scriptUri;

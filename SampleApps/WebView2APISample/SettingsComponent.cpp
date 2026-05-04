@@ -1327,11 +1327,11 @@ bool SettingsComponent::HandleWindowMessage(
         case IDM_TRACKING_PREVENTION_LEVEL_STRICT:
             SetTrackingPreventionLevel(COREWEBVIEW2_TRACKING_PREVENTION_LEVEL_STRICT);
             return true;
-        case IDM_ENHANCED_SECURITY_MODE_LEVEL_OFF:
-            SetEnhancedSecurityModeLevel(COREWEBVIEW2_ENHANCED_SECURITY_MODE_LEVEL_OFF);
+        case IDM_ENHANCED_SECURITY_MODE_STATE_DISABLED:
+            SetEnhancedSecurityModeState(COREWEBVIEW2_ENHANCED_SECURITY_MODE_STATE_DISABLED);
             return true;
-        case IDM_ENHANCED_SECURITY_MODE_LEVEL_STRICT:
-            SetEnhancedSecurityModeLevel(COREWEBVIEW2_ENHANCED_SECURITY_MODE_LEVEL_STRICT);
+        case IDM_ENHANCED_SECURITY_MODE_STATE_ENABLED:
+            SetEnhancedSecurityModeState(COREWEBVIEW2_ENHANCED_SECURITY_MODE_STATE_ENABLED);
             return true;
         case ID_SETTINGS_NON_CLIENT_REGION_SUPPORT_ENABLED:
         {
@@ -1850,9 +1850,9 @@ void SettingsComponent::SetTrackingPreventionLevel(COREWEBVIEW2_TRACKING_PREVENT
 }
 //! [SetTrackingPreventionLevel]
 
-//! [SetEnhancedSecurityModeLevel]
-void SettingsComponent::SetEnhancedSecurityModeLevel(
-    COREWEBVIEW2_ENHANCED_SECURITY_MODE_LEVEL value)
+//! [SetEnhancedSecurityModeState]
+void SettingsComponent::SetEnhancedSecurityModeState(
+    COREWEBVIEW2_ENHANCED_SECURITY_MODE_STATE value)
 {
     wil::com_ptr<ICoreWebView2_13> webView2_13;
     webView2_13 = m_webView.try_query<ICoreWebView2_13>();
@@ -1862,25 +1862,25 @@ void SettingsComponent::SetEnhancedSecurityModeLevel(
         wil::com_ptr<ICoreWebView2Profile> profile;
         CHECK_FAILURE(webView2_13->get_Profile(&profile));
 
-        auto experimentalProfile9 = profile.try_query<ICoreWebView2ExperimentalProfile9>();
-        if (experimentalProfile9)
+        auto experimentalProfile17 = profile.try_query<ICoreWebView2ExperimentalProfile17>();
+        if (experimentalProfile17)
         {
-            CHECK_FAILURE(experimentalProfile9->put_EnhancedSecurityModeLevel(value));
+            CHECK_FAILURE(experimentalProfile17->put_EnhancedSecurityModeState(value));
 
-            const wchar_t* levelText = L"Off";
-            if (value == COREWEBVIEW2_ENHANCED_SECURITY_MODE_LEVEL_STRICT)
+            const wchar_t* stateText = L"Disabled";
+            if (value == COREWEBVIEW2_ENHANCED_SECURITY_MODE_STATE_ENABLED)
             {
-                levelText = L"Strict";
+                stateText = L"Enabled";
             }
 
             MessageBox(
                 nullptr,
-                (std::wstring(L"Enhanced Security Mode level is set to ") + levelText).c_str(),
-                L"Enhanced Security Mode Level", MB_OK);
+                (std::wstring(L"Enhanced Security Mode state is set to ") + stateText).c_str(),
+                L"Enhanced Security Mode State", MB_OK);
         }
     }
 }
-//! [SetEnhancedSecurityModeLevel]
+//! [SetEnhancedSecurityModeState]
 
 SettingsComponent::~SettingsComponent()
 {
