@@ -12,16 +12,14 @@ using namespace Microsoft::WRL;
 ScenarioDedicatedWorker::ScenarioDedicatedWorker(AppWindow* appWindow) : m_appWindow(appWindow)
 {
     //! [DedicatedWorkerCreated]
-    m_appWindow->GetWebView()->QueryInterface(IID_PPV_ARGS(&m_webView2Experimental_30));
-    CHECK_FEATURE_RETURN_EMPTY(m_webView2Experimental_30);
+    m_appWindow->GetWebView()->QueryInterface(IID_PPV_ARGS(&m_webView2_29));
+    CHECK_FEATURE_RETURN_EMPTY(m_webView2_29);
 
-    CHECK_FAILURE(m_webView2Experimental_30->add_DedicatedWorkerCreated(
-        Callback<ICoreWebView2ExperimentalDedicatedWorkerCreatedEventHandler>(
-            [this](
-                ICoreWebView2* sender,
-                ICoreWebView2ExperimentalDedicatedWorkerCreatedEventArgs* args)
+    CHECK_FAILURE(m_webView2_29->add_DedicatedWorkerCreated(
+        Callback<ICoreWebView2DedicatedWorkerCreatedEventHandler>(
+            [this](ICoreWebView2* sender, ICoreWebView2DedicatedWorkerCreatedEventArgs* args)
             {
-                wil::com_ptr<ICoreWebView2ExperimentalDedicatedWorker> dedicatedWorker;
+                wil::com_ptr<ICoreWebView2DedicatedWorker> dedicatedWorker;
                 CHECK_FAILURE(args->get_Worker(&dedicatedWorker));
 
                 wil::unique_cotaskmem_string scriptUri;
@@ -32,10 +30,9 @@ ScenarioDedicatedWorker::ScenarioDedicatedWorker(AppWindow* appWindow) : m_appWi
 
                 // Subscribe to worker destroying event
                 dedicatedWorker->add_Destroying(
-                    Callback<ICoreWebView2ExperimentalDedicatedWorkerDestroyingEventHandler>(
+                    Callback<ICoreWebView2DedicatedWorkerDestroyingEventHandler>(
                         [this, scriptUriStr](
-                            ICoreWebView2ExperimentalDedicatedWorker* sender,
-                            IUnknown* args) -> HRESULT
+                            ICoreWebView2DedicatedWorker* sender, IUnknown* args) -> HRESULT
                         {
                             /*Cleanup on worker destruction*/
                             m_appWindow->AsyncMessageBox(
@@ -62,15 +59,14 @@ ScenarioDedicatedWorker::ScenarioDedicatedWorker(AppWindow* appWindow) : m_appWi
                 wil::com_ptr<ICoreWebView2Frame> webviewFrame;
                 CHECK_FAILURE(args->get_Frame(&webviewFrame));
 
-                wil::com_ptr<ICoreWebView2ExperimentalFrame9> m_frameExperimental_9 =
-                    webviewFrame.try_query<ICoreWebView2ExperimentalFrame9>();
+                wil::com_ptr<ICoreWebView2Frame8> m_frame8 =
+                    webviewFrame.try_query<ICoreWebView2Frame8>();
 
-                m_frameExperimental_9->add_DedicatedWorkerCreated(
-                    Callback<ICoreWebView2ExperimentalFrameDedicatedWorkerCreatedEventHandler>(
+                m_frame8->add_DedicatedWorkerCreated(
+                    Callback<ICoreWebView2FrameDedicatedWorkerCreatedEventHandler>(
                         [this](
                             ICoreWebView2Frame* sender,
-                            ICoreWebView2ExperimentalDedicatedWorkerCreatedEventArgs* args)
-                            -> HRESULT
+                            ICoreWebView2DedicatedWorkerCreatedEventArgs* args) -> HRESULT
                         {
                             // frameInfo that created the worker.
                             wil::com_ptr<ICoreWebView2FrameInfo> frameInfo;
@@ -85,8 +81,7 @@ ScenarioDedicatedWorker::ScenarioDedicatedWorker(AppWindow* appWindow) : m_appWi
                             UINT32 source_frameId;
                             CHECK_FAILURE(frameInfo2->get_FrameId(&source_frameId));
 
-                            wil::com_ptr<ICoreWebView2ExperimentalDedicatedWorker>
-                                dedicatedWorker;
+                            wil::com_ptr<ICoreWebView2DedicatedWorker> dedicatedWorker;
                             CHECK_FAILURE(args->get_Worker(&dedicatedWorker));
 
                             wil::unique_cotaskmem_string scriptUri;
@@ -98,10 +93,9 @@ ScenarioDedicatedWorker::ScenarioDedicatedWorker(AppWindow* appWindow) : m_appWi
 
                             // Subscribe to worker destroying event
                             dedicatedWorker->add_Destroying(
-                                Callback<
-                                    ICoreWebView2ExperimentalDedicatedWorkerDestroyingEventHandler>(
+                                Callback<ICoreWebView2DedicatedWorkerDestroyingEventHandler>(
                                     [this, scriptUriStr](
-                                        ICoreWebView2ExperimentalDedicatedWorker* sender,
+                                        ICoreWebView2DedicatedWorker* sender,
                                         IUnknown* args) -> HRESULT
                                     {
                                         /*Cleanup on worker destruction*/
@@ -125,5 +119,5 @@ ScenarioDedicatedWorker::ScenarioDedicatedWorker(AppWindow* appWindow) : m_appWi
 
 ScenarioDedicatedWorker::~ScenarioDedicatedWorker()
 {
-    m_webView2Experimental_30->remove_DedicatedWorkerCreated(m_dedicatedWorkerCreatedToken);
+    m_webView2_29->remove_DedicatedWorkerCreated(m_dedicatedWorkerCreatedToken);
 }

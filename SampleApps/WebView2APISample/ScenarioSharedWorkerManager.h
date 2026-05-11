@@ -21,6 +21,6 @@ private:
 
     AppWindow* m_appWindow;
     wil::com_ptr<ICoreWebView2> m_webView;
-    wil::com_ptr<ICoreWebView2ExperimentalSharedWorkerManager> m_sharedWorkerManager;
+    wil::com_ptr<ICoreWebView2SharedWorkerManager> m_sharedWorkerManager;
     EventRegistrationToken m_sharedWorkerCreatedToken = {};
 };

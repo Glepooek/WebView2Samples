@@ -16,15 +16,13 @@ public:
 private:
     void SetupEventsOnWebview();
     void CreateServiceWorkerManager();
-    void SetupEventsOnServiceWorker(
-        wil::com_ptr<ICoreWebView2ExperimentalServiceWorker> serviceWorker);
-    void AddToCache(
-        std::wstring url, wil::com_ptr<ICoreWebView2ExperimentalServiceWorker> serviceWorker);
+    void SetupEventsOnServiceWorker(wil::com_ptr<ICoreWebView2ServiceWorker> serviceWorker);
+    void AddToCache(std::wstring url, wil::com_ptr<ICoreWebView2ServiceWorker> serviceWorker);
 
     AppWindow* m_appWindow;
     wil::com_ptr<ICoreWebView2> m_webView;
     std::wstring m_sampleUri;
-    wil::com_ptr<ICoreWebView2ExperimentalServiceWorkerManager> m_serviceWorkerManager;
+    wil::com_ptr<ICoreWebView2ServiceWorkerManager> m_serviceWorkerManager;
     EventRegistrationToken m_contentLoadingToken = {};
     EventRegistrationToken m_serviceWorkerRegisteredToken = {};
 };

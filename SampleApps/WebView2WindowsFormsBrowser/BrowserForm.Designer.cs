@@ -1,4 +1,4 @@
-﻿// Copyright (C) Microsoft Corporation. All rights reserved.
+// Copyright (C) Microsoft Corporation. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -409,7 +409,7 @@ namespace WebView2WindowsFormsBrowser
             this.scriptToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.injectScriptMenuItem,
                 this.injectScriptIntoFrameMenuItem,
-                this.methodCDPToolStripMenuItem, 
+                this.methodCDPToolStripMenuItem,
                 this.taskManagerToolStripMenuItem,
                 this.postMessageStringMenuItem,
                 this.postMessageJsonMenuItem,
@@ -626,7 +626,7 @@ namespace WebView2WindowsFormsBrowser
             this.addRemoteObjectMenuItem.Click += new System.EventHandler(this.addRemoteObjectMenuItem_Click);
             //
             // domContentLoadedMenuItem
-            // 
+            //
             this.domContentLoadedMenuItem.Name = "domContentLoadedMenuItem";
             this.domContentLoadedMenuItem.Size = new System.Drawing.Size(359, 44);
             this.domContentLoadedMenuItem.Text = "DOM Content Loaded";

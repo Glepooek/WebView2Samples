@@ -84,7 +84,7 @@ namespace WebView2WpfBrowser
         public static RoutedCommand CreateNewThreadCommand = new RoutedCommand();
         public static RoutedCommand ExtensionsCommand = new RoutedCommand();
         public static RoutedCommand TrackingPreventionLevelCommand = new RoutedCommand();
-        public static RoutedCommand EnhancedSecurityModeLevelCommand = new RoutedCommand();
+        public static RoutedCommand EnhancedSecurityModeStateCommand = new RoutedCommand();
         public static RoutedCommand WebRtcUdpPortConfigCommand = new RoutedCommand();
         public static RoutedCommand PrintDialogCommand = new RoutedCommand();
         public static RoutedCommand PrintToDefaultPrinterCommand = new RoutedCommand();
@@ -337,13 +337,13 @@ namespace WebView2WpfBrowser
             // <SetAllowedPortRange>
             CoreWebView2EnvironmentOptions options = new CoreWebView2EnvironmentOptions();
 
-             try 
+             try
             {
                 // Set allowed port range for WebRTC UDP traffic (example: ports 10000-20000)
                 options.SetAllowedPortRange(
-                    CoreWebView2AllowedPortRangeScope.WebRtc, 
-                    CoreWebView2TransportProtocolKind.Udp, 
-                    10000, 
+                    CoreWebView2AllowedPortRangeScope.WebRtc,
+                    CoreWebView2TransportProtocolKind.Udp,
+                    10000,
                     20000);
 
             }
@@ -357,9 +357,9 @@ namespace WebView2WpfBrowser
             {
                 browserExecutableFolder = webView2.CreationProperties.BrowserExecutableFolder;
             }
-            
+
             CoreWebView2Environment environment = await CoreWebView2Environment.CreateAsync(browserExecutableFolder, null, options);
-            
+
             // Configure WebRTC UDP port range if experimental API is available
             await webView2.EnsureCoreWebView2Async(environment);
             // </SetAllowedPortRange>
@@ -1034,29 +1034,29 @@ namespace WebView2WpfBrowser
         }
         // <SetTrackingPreventionLevel>
 
-        void EnhancedSecurityModeLevelCommandExecuted(object target, ExecutedRoutedEventArgs e)
+        void EnhancedSecurityModeStateCommandExecuted(object target, ExecutedRoutedEventArgs e)
         {
 #if USE_WEBVIEW2_EXPERIMENTAL
-            string level = e.Parameter.ToString();
-            if (level == "Off")
+            string state = e.Parameter.ToString();
+            if (state == "Disabled")
             {
-                SetEnhancedSecurityModeLevel(CoreWebView2EnhancedSecurityModeLevel.Off);
+                SetEnhancedSecurityModeState(CoreWebView2EnhancedSecurityModeState.Disabled);
             }
             else
             {
-                SetEnhancedSecurityModeLevel(CoreWebView2EnhancedSecurityModeLevel.Strict);
+                SetEnhancedSecurityModeState(CoreWebView2EnhancedSecurityModeState.Enabled);
             }
 #endif
         }
 
 #if USE_WEBVIEW2_EXPERIMENTAL
-        // <SetEnhancedSecurityModeLevel>
-        void SetEnhancedSecurityModeLevel(CoreWebView2EnhancedSecurityModeLevel value)
+        // <SetEnhancedSecurityModeState>
+        void SetEnhancedSecurityModeState(CoreWebView2EnhancedSecurityModeState value)
         {
-            WebViewProfile.EnhancedSecurityModeLevel = value;
-            MessageBox.Show(this, "Enhanced security mode level is set successfully", "Enhanced Security Mode Level");
+            WebViewProfile.EnhancedSecurityModeState = value;
+            MessageBox.Show(this, "Enhanced security mode state is set successfully", "Enhanced Security Mode State");
         }
-        // <SetEnhancedSecurityModeLevel>
+        // <SetEnhancedSecurityModeState>
 #endif
 
         void WebRtcUdpPortConfigCommandExecuted(object target, ExecutedRoutedEventArgs e)
@@ -1073,7 +1073,7 @@ namespace WebView2WpfBrowser
                 MessageBox.Show("WebView2 is not initialized.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 #else
-            MessageBox.Show("WebRTC UDP Port Configuration is only available in prerelease builds", 
+            MessageBox.Show("WebRTC UDP Port Configuration is only available in prerelease builds",
                 "Feature Not Available", MessageBoxButton.OK, MessageBoxImage.Information);
 #endif
         }
@@ -4556,7 +4556,7 @@ private async void ToggleFindOptionAndRestart(Func<bool> optionGetter, Action<bo
 
     if (_findOptions == null)
     {
-        _findOptions = CreateDefaultFindOptions(); 
+        _findOptions = CreateDefaultFindOptions();
     }
 
     bool currentVal = optionGetter();

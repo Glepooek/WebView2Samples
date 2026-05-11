@@ -18,16 +18,14 @@ ScenarioDedicatedWorkerPostMessage::ScenarioDedicatedWorkerPostMessage(AppWindow
     : m_appWindow(appWindow)
 {
     //! [DedicatedWorkerCreated]
-    m_appWindow->GetWebView()->QueryInterface(IID_PPV_ARGS(&m_webView2Experimental_30));
-    CHECK_FEATURE_RETURN_EMPTY(m_webView2Experimental_30);
+    m_appWindow->GetWebView()->QueryInterface(IID_PPV_ARGS(&m_webView2_29));
+    CHECK_FEATURE_RETURN_EMPTY(m_webView2_29);
 
-    CHECK_FAILURE(m_webView2Experimental_30->add_DedicatedWorkerCreated(
-        Callback<ICoreWebView2ExperimentalDedicatedWorkerCreatedEventHandler>(
-            [this](
-                ICoreWebView2* sender,
-                ICoreWebView2ExperimentalDedicatedWorkerCreatedEventArgs* args)
+    CHECK_FAILURE(m_webView2_29->add_DedicatedWorkerCreated(
+        Callback<ICoreWebView2DedicatedWorkerCreatedEventHandler>(
+            [this](ICoreWebView2* sender, ICoreWebView2DedicatedWorkerCreatedEventArgs* args)
             {
-                wil::com_ptr<ICoreWebView2ExperimentalDedicatedWorker> dedicatedWorker;
+                wil::com_ptr<ICoreWebView2DedicatedWorker> dedicatedWorker;
                 CHECK_FAILURE(args->get_Worker(&dedicatedWorker));
 
                 wil::unique_cotaskmem_string scriptUri;
@@ -66,13 +64,13 @@ ScenarioDedicatedWorkerPostMessage::ScenarioDedicatedWorkerPostMessage(AppWindow
 }
 
 void ScenarioDedicatedWorkerPostMessage::SetupEventsOnDedicatedWorker(
-    wil::com_ptr<ICoreWebView2ExperimentalDedicatedWorker> dedicatedWorker)
+    wil::com_ptr<ICoreWebView2DedicatedWorker> dedicatedWorker)
 {
     //! [WebMessageReceived]
     dedicatedWorker->add_WebMessageReceived(
-        Callback<ICoreWebView2ExperimentalDedicatedWorkerWebMessageReceivedEventHandler>(
+        Callback<ICoreWebView2DedicatedWorkerWebMessageReceivedEventHandler>(
             [this](
-                ICoreWebView2ExperimentalDedicatedWorker* sender,
+                ICoreWebView2DedicatedWorker* sender,
                 ICoreWebView2WebMessageReceivedEventArgs* args) -> HRESULT
             {
                 wil::unique_cotaskmem_string scriptUri;
@@ -96,7 +94,7 @@ void ScenarioDedicatedWorkerPostMessage::SetupEventsOnDedicatedWorker(
 }
 
 void ScenarioDedicatedWorkerPostMessage::ComputeWithDedicatedWorker(
-    wil::com_ptr<ICoreWebView2ExperimentalDedicatedWorker> dedicatedWorker)
+    wil::com_ptr<ICoreWebView2DedicatedWorker> dedicatedWorker)
 {
     //! [PostWebMessageAsJson]
     // Do not block from event handler
@@ -118,6 +116,6 @@ void ScenarioDedicatedWorkerPostMessage::ComputeWithDedicatedWorker(
 
 ScenarioDedicatedWorkerPostMessage::~ScenarioDedicatedWorkerPostMessage()
 {
-    m_webView2Experimental_30->remove_DedicatedWorkerCreated(m_dedicatedWorkerCreatedToken);
+    m_webView2_29->remove_DedicatedWorkerCreated(m_dedicatedWorkerCreatedToken);
     m_appWindow->GetWebView()->remove_ContentLoading(m_contentLoadingToken);
 }

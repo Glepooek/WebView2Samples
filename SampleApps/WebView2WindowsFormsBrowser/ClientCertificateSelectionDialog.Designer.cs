@@ -1,4 +1,4 @@
-﻿
+
 namespace WebView2WindowsFormsBrowser
 {
     partial class ClientCertificateSelectionDialog
@@ -34,9 +34,9 @@ namespace WebView2WindowsFormsBrowser
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.CertificateDataBinding = new System.Windows.Forms.ListView();
             this.SuspendLayout();
-            // 
+            //
             // btnOk
-            // 
+            //
             this.btnOk.Location = new System.Drawing.Point(464, 295);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
@@ -44,9 +44,9 @@ namespace WebView2WindowsFormsBrowser
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
+            //
             // btnCancel
-            // 
+            //
             this.btnCancel.Location = new System.Drawing.Point(545, 295);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -54,27 +54,27 @@ namespace WebView2WindowsFormsBrowser
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
+            //
             // txtDescription
-            // 
+            //
             this.txtDescription.Location = new System.Drawing.Point(22, 12);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
             this.txtDescription.Size = new System.Drawing.Size(598, 20);
             this.txtDescription.TabIndex = 3;
-            // 
+            //
             // CertificateDataBinding
-            // 
+            //
             this.CertificateDataBinding.HideSelection = false;
             this.CertificateDataBinding.Location = new System.Drawing.Point(22, 51);
             this.CertificateDataBinding.Name = "CertificateDataBinding";
             this.CertificateDataBinding.Size = new System.Drawing.Size(598, 226);
             this.CertificateDataBinding.TabIndex = 4;
             this.CertificateDataBinding.UseCompatibleStateImageBehavior = false;
-            // 
+            //
             // ClientCertificateSelectionDialog
-            // 
+            //
             this.AcceptButton = this.btnOk;
             this.CancelButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

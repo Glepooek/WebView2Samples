@@ -15,6 +15,6 @@ public:
 
 private:
     AppWindow* m_appWindow;
-    wil::com_ptr<ICoreWebView2Experimental30> m_webView2Experimental_30;
+    wil::com_ptr<ICoreWebView2_29> m_webView2_29;
     EventRegistrationToken m_dedicatedWorkerCreatedToken = {};
 };

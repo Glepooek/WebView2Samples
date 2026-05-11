@@ -22,6 +22,6 @@ private:
 
     AppWindow* m_appWindow;
     wil::com_ptr<ICoreWebView2> m_webView;
-    wil::com_ptr<ICoreWebView2ExperimentalServiceWorkerManager> m_serviceWorkerManager;
+    wil::com_ptr<ICoreWebView2ServiceWorkerManager> m_serviceWorkerManager;
     EventRegistrationToken m_serviceWorkerRegisteredToken = {};
 };

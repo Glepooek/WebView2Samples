@@ -14,8 +14,7 @@ public:
     ScenarioServiceWorkerPostMessageSetting(AppWindow* appWindow);
     ~ScenarioServiceWorkerPostMessageSetting() override;
     void SetupEventsOnWebview();
-    void SetupEventsOnServiceWorker(
-        wil::com_ptr<ICoreWebView2ExperimentalServiceWorker> serviceWorker);
+    void SetupEventsOnServiceWorker(wil::com_ptr<ICoreWebView2ServiceWorker> serviceWorker);
 
     void ToggleServiceWorkerJsApiSetting();
     void UnregisterAllServiceWorkers();
@@ -23,7 +22,7 @@ public:
 private:
     AppWindow* m_appWindow;
     wil::com_ptr<ICoreWebView2> m_webView;
-    wil::com_ptr<ICoreWebView2ExperimentalServiceWorkerManager> m_serviceWorkerManager;
+    wil::com_ptr<ICoreWebView2ServiceWorkerManager> m_serviceWorkerManager;
     std::wstring m_sampleUri;
     EventRegistrationToken m_serviceWorkerRegisteredToken = {};
     EventRegistrationToken m_contentLoadingToken = {};

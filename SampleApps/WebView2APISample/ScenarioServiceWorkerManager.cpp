@@ -27,11 +27,9 @@ void ScenarioServiceWorkerManager::CreateServiceWorkerManager()
 
     wil::com_ptr<ICoreWebView2Profile> webView2Profile;
     CHECK_FAILURE(webView2_13->get_Profile(&webView2Profile));
-    auto webViewExperimentalProfile13 =
-        webView2Profile.try_query<ICoreWebView2ExperimentalProfile13>();
-    CHECK_FEATURE_RETURN_EMPTY(webViewExperimentalProfile13);
-    CHECK_FAILURE(
-        webViewExperimentalProfile13->get_ServiceWorkerManager(&m_serviceWorkerManager));
+    auto webViewProfile9 = webView2Profile.try_query<ICoreWebView2Profile9>();
+    CHECK_FEATURE_RETURN_EMPTY(webViewProfile9);
+    CHECK_FAILURE(webViewProfile9->get_ServiceWorkerManager(&m_serviceWorkerManager));
     //! [ServiceWorkerManager]
 }
 
@@ -44,13 +42,12 @@ void ScenarioServiceWorkerManager::SetupEventsOnWebview()
 
     //! [ServiceWorkerRegistered]
     CHECK_FAILURE(m_serviceWorkerManager->add_ServiceWorkerRegistered(
-        Callback<ICoreWebView2ExperimentalServiceWorkerRegisteredEventHandler>(
+        Callback<ICoreWebView2ServiceWorkerRegisteredEventHandler>(
             [this](
-                ICoreWebView2ExperimentalServiceWorkerManager* sender,
-                ICoreWebView2ExperimentalServiceWorkerRegisteredEventArgs* args)
+                ICoreWebView2ServiceWorkerManager* sender,
+                ICoreWebView2ServiceWorkerRegisteredEventArgs* args)
             {
-                wil::com_ptr<ICoreWebView2ExperimentalServiceWorkerRegistration>
-                    serviceWorkerRegistration;
+                wil::com_ptr<ICoreWebView2ServiceWorkerRegistration> serviceWorkerRegistration;
                 CHECK_FAILURE(args->get_ServiceWorkerRegistration(&serviceWorkerRegistration));
 
                 if (serviceWorkerRegistration)
@@ -69,9 +66,9 @@ void ScenarioServiceWorkerManager::SetupEventsOnWebview()
                     // Subscribe to worker registration unregistering event
                     serviceWorkerRegistration->add_Unregistering(
                         Callback<
-                            ICoreWebView2ExperimentalServiceWorkerRegistrationUnregisteringEventHandler>(
+                            ICoreWebView2ServiceWorkerRegistrationUnregisteringEventHandler>(
                             [this, scopeUriStr](
-                                ICoreWebView2ExperimentalServiceWorkerRegistration* sender,
+                                ICoreWebView2ServiceWorkerRegistration* sender,
                                 IUnknown* args) -> HRESULT
                             {
                                 /*Cleanup on worker registration destruction*/
@@ -82,7 +79,7 @@ void ScenarioServiceWorkerManager::SetupEventsOnWebview()
                             .Get(),
                         nullptr);
 
-                    wil::com_ptr<ICoreWebView2ExperimentalServiceWorker> serviceWorker;
+                    wil::com_ptr<ICoreWebView2ServiceWorker> serviceWorker;
                     CHECK_FAILURE(
                         serviceWorkerRegistration->get_ActiveServiceWorker(&serviceWorker));
 
@@ -94,10 +91,9 @@ void ScenarioServiceWorkerManager::SetupEventsOnWebview()
 
                         // Subscribe to worker destroying event
                         serviceWorker->add_Destroying(
-                            Callback<
-                                ICoreWebView2ExperimentalServiceWorkerDestroyingEventHandler>(
+                            Callback<ICoreWebView2ServiceWorkerDestroyingEventHandler>(
                                 [this, scriptUriStr](
-                                    ICoreWebView2ExperimentalServiceWorker* sender,
+                                    ICoreWebView2ServiceWorker* sender,
                                     IUnknown* args) -> HRESULT
                                 {
                                     /*Cleanup on worker destruction*/
@@ -111,15 +107,13 @@ void ScenarioServiceWorkerManager::SetupEventsOnWebview()
                     else
                     {
                         CHECK_FAILURE(serviceWorkerRegistration->add_ServiceWorkerActivated(
-                            Callback<
-                                ICoreWebView2ExperimentalServiceWorkerActivatedEventHandler>(
+                            Callback<ICoreWebView2ServiceWorkerActivatedEventHandler>(
                                 [this](
-                                    ICoreWebView2ExperimentalServiceWorkerRegistration* sender,
-                                    ICoreWebView2ExperimentalServiceWorkerActivatedEventArgs*
-                                        args) -> HRESULT
+                                    ICoreWebView2ServiceWorkerRegistration* sender,
+                                    ICoreWebView2ServiceWorkerActivatedEventArgs* args)
+                                    -> HRESULT
                                 {
-                                    wil::com_ptr<ICoreWebView2ExperimentalServiceWorker>
-                                        serviceWorker;
+                                    wil::com_ptr<ICoreWebView2ServiceWorker> serviceWorker;
                                     CHECK_FAILURE(
                                         args->get_ActiveServiceWorker(&serviceWorker));
                                     wil::unique_cotaskmem_string scriptUri;
@@ -129,9 +123,9 @@ void ScenarioServiceWorkerManager::SetupEventsOnWebview()
                                     // Subscribe to worker destroying event
                                     serviceWorker->add_Destroying(
                                         Callback<
-                                            ICoreWebView2ExperimentalServiceWorkerDestroyingEventHandler>(
+                                            ICoreWebView2ServiceWorkerDestroyingEventHandler>(
                                             [this, scriptUriStr](
-                                                ICoreWebView2ExperimentalServiceWorker* sender,
+                                                ICoreWebView2ServiceWorker* sender,
                                                 IUnknown* args) -> HRESULT
                                             {
                                                 /*Cleanup on worker destruction*/
@@ -166,9 +160,9 @@ void ScenarioServiceWorkerManager::GetAllServiceWorkerRegistrations()
 {
     CHECK_FEATURE_RETURN_EMPTY(m_serviceWorkerManager);
     CHECK_FAILURE(m_serviceWorkerManager->GetServiceWorkerRegistrations(
-        Callback<ICoreWebView2ExperimentalGetServiceWorkerRegistrationsCompletedHandler>(
+        Callback<ICoreWebView2GetServiceWorkerRegistrationsCompletedHandler>(
             [this](
-                HRESULT error, ICoreWebView2ExperimentalServiceWorkerRegistrationCollectionView*
+                HRESULT error, ICoreWebView2ServiceWorkerRegistrationCollectionView*
                                    workerRegistrationCollection) -> HRESULT
             {
                 CHECK_FAILURE(error);
@@ -181,8 +175,7 @@ void ScenarioServiceWorkerManager::GetAllServiceWorkerRegistrations()
 
                 for (UINT32 i = 0; i < workersCount; i++)
                 {
-                    ComPtr<ICoreWebView2ExperimentalServiceWorkerRegistration>
-                        serviceWorkerRegistration;
+                    ComPtr<ICoreWebView2ServiceWorkerRegistration> serviceWorkerRegistration;
                     CHECK_FAILURE(workerRegistrationCollection->GetValueAtIndex(
                         i, &serviceWorkerRegistration));
 
@@ -221,11 +214,10 @@ void ScenarioServiceWorkerManager::GetServiceWorkerRegisteredForScope()
         std::wstring scope = dialog.input.c_str();
         CHECK_FAILURE(m_serviceWorkerManager->GetServiceWorkerRegistrationsForScope(
             scope.c_str(),
-            Callback<ICoreWebView2ExperimentalGetServiceWorkerRegistrationsCompletedHandler>(
+            Callback<ICoreWebView2GetServiceWorkerRegistrationsCompletedHandler>(
                 [this, scope](
-                    HRESULT error,
-                    ICoreWebView2ExperimentalServiceWorkerRegistrationCollectionView*
-                        workerRegistrationCollection) -> HRESULT
+                    HRESULT error, ICoreWebView2ServiceWorkerRegistrationCollectionView*
+                                       workerRegistrationCollection) -> HRESULT
                 {
                     CHECK_FAILURE(error);
                     UINT32 workersCount = 0;
@@ -237,7 +229,7 @@ void ScenarioServiceWorkerManager::GetServiceWorkerRegisteredForScope()
 
                     for (UINT32 i = 0; i < workersCount; i++)
                     {
-                        ComPtr<ICoreWebView2ExperimentalServiceWorkerRegistration>
+                        ComPtr<ICoreWebView2ServiceWorkerRegistration>
                             serviceWorkerRegistration;
                         CHECK_FAILURE(workerRegistrationCollection->GetValueAtIndex(
                             i, &serviceWorkerRegistration));

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Microsoft Corporation. All rights reserved.
+// Copyright (C) Microsoft Corporation. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -44,9 +44,9 @@ namespace WebView2WindowsFormsBrowser
             this._eventsListBox = new System.Windows.Forms.ListBox();
             this._eventDetailsListBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
+            //
             // clearButton
-            // 
+            //
             this._clearButton.Location = new System.Drawing.Point(0, 0);
             this._clearButton.Name = "clearButton";
             this._clearButton.Size = new System.Drawing.Size(75, 23);
